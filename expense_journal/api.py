@@ -52,7 +52,7 @@ DONE
     - Link: Default Payment Account (Link: Mode of Payment) 
       - Desc: Create a Mode of Payment for expenses and link it to your usual expenditure account like Petty Cash
     - Checkbox: Notify all Approvers
-      - Desc: when a expense request is made
+      - Desc: when a expense journal is made
     - Checkbox: Create Journals Automatically
 
 Add all the fixtures to the app so that it is fully portable
