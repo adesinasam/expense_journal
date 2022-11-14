@@ -173,7 +173,6 @@
    "label": "Accounting Dimensions"
   },
   {
-   "default": ":Company",
    "allow_in_quick_entry": 1,
    "description": "Applies to all expenses below unless specified differently",
    "fieldname": "default_cost_center",

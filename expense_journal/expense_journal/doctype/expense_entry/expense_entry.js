@@ -71,6 +71,7 @@ frappe.ui.form.on('Expense Entry', {
 		frm.set_query("expense_account", 'expenses', () => {
 			return {
 				filters: [
+					["Account", "company", "=", frm.doc.company],
 					["Account", "root_type", "=", "Expense"],
 					["Account", "parent_account", "Like", "%Indirect Expenses%"],
                     ["Account", "is_group", "=", "0"]
@@ -80,6 +81,7 @@ frappe.ui.form.on('Expense Entry', {
 		frm.set_query("cost_center", 'expenses', () => {
 			return {	
 				filters: [
+					["Cost Center", "company", "=", frm.doc.company],
 					["Cost Center", "is_group", "=", "0"]
 				]
 			}
@@ -87,6 +89,7 @@ frappe.ui.form.on('Expense Entry', {
 		frm.set_query("default_cost_center", () => {
 			return {
 				filters: [
+					["Cost Center", "company", "=", frm.doc.company],
 					["Cost Center", "is_group", "=", "0"]
 				]
 			}

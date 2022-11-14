@@ -46,9 +46,9 @@ Section: Additional Information
 ## Expense Workflow
 1. Draft
 2. Pending
-3. Approved
-4. Rejected
-5. Cancelled
+2. Approved
+3. Rejected
+4. Cancelled
 
 ## Installation
 

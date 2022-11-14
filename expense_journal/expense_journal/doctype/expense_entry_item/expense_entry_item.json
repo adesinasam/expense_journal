@@ -17,7 +17,6 @@
  ],
  "fields": [
   {
-   "default": ":Company",
    "allow_in_quick_entry": 1,
    "fieldname": "expense_account",
    "fieldtype": "Link",
