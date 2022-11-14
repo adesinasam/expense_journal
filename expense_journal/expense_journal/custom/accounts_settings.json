@@ -173,7 +173,7 @@
    "creation": "2020-10-25 19:37:57.397167",
    "default": null,
    "depends_on": null,
-   "description": "Notify all Approvers when a expense request is made",
+   "description": "Notify all Approvers when a expense journal is made",
    "docstatus": 0,
    "dt": "Accounts Settings",
    "fetch_from": null,
