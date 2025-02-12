@@ -73,7 +73,7 @@ frappe.ui.form.on('Expense Entry', {
 				filters: [
 					["Account", "company", "=", frm.doc.company],
 					["Account", "root_type", "=", "Expense"],
-					["Account", "parent_account", "Like", "%Indirect Expenses%"],
+					["Account", "parent_account", "Not Like", "%Stock Expenses%"],
                     ["Account", "is_group", "=", "0"]
 				]
 			}
