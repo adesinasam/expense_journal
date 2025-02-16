@@ -11,7 +11,19 @@
   "style": "Danger",
   "workflow_state_name": "Draft"
  },
-  {
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "question-sign",
+  "modified": "2025-02-16 00:53:35.970465",
+  "name": "Open",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Info",
+  "workflow_state_name": "Open"
+ },
+ {
   "docstatus": 0,
   "doctype": "Workflow State",
   "icon": "question-sign",
