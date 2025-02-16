@@ -137,8 +137,11 @@ def make_journal_entry(expense_entry):
 
         pay_account = ""
 
-        if (expense_entry.mode_of_payment != "Cash" and (not 
-            expense_entry.payment_reference or not expense_entry.clearance_date)):
+        # Retrieve the payment type (e.g., "Cash", "Bank") from the Mode of Payment doctype
+        pay_type = frappe.db.get_value('Mode of Payment', expense_entry.mode_of_payment, 'type')
+        
+        # Check if the payment type is not "Cash" and if required fields are missing
+        if pay_type != "Cash" and (not expense_entry.payment_reference or not expense_entry.clearance_date):
             frappe.throw(
                 title="Enter Payment Reference",
                 msg="Payment Reference and Date are Required for all non-cash payments."
