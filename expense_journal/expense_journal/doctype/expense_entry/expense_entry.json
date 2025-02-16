@@ -143,7 +143,7 @@
    "fieldtype": "Select",
    "hidden": 1,
    "label": "Status",
-   "options": "Pending\nApproved\nRejected"
+   "options": "Draft\nOpen\nPending\nApproved\nRejected"
   },
   {
    "allow_on_submit": 1,
