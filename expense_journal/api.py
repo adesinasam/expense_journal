@@ -164,7 +164,9 @@ def make_journal_entry(expense_entry):
         accounts.append({  
             'credit_in_account_currency': float(expense_entry.total),
             'user_remark': str(detail.description),
-            'account': pay_account
+            'account': pay_account,
+            'project': detail.project,
+            'cost_center': detail.cost_center
         })
 
         # create the journal entry
