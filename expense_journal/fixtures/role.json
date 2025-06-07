@@ -1,8 +1,8 @@
 [
   {
     "doctype": "Role",
-    "name": "Expenser User",
-    "role_name": "Expenser User",
+    "name": "Expense User",
+    "role_name": "Expense User",
     "desk_access": 1,
     "is_custom": 0,
     "disabled": 0
