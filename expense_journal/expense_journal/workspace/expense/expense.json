@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"cJhgdSD9mh\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Expense</span>\",\"col\":12}},{\"id\":\"nVBkm7nfDw\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"-B_qEZzEA6\",\"type\":\"card\",\"data\":{\"card_name\":\"Expense\",\"col\":4}},{\"id\":\"cGBO53xhGv\",\"type\":\"card\",\"data\":{\"card_name\":\"Custom Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"cJhgdSD9mh\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Expense</span>\",\"col\":12}},{\"id\":\"G984PYVRJN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Expense Entry\",\"col\":4}},{\"id\":\"nVBkm7nfDw\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"-B_qEZzEA6\",\"type\":\"card\",\"data\":{\"card_name\":\"Expense\",\"col\":4}},{\"id\":\"cGBO53xhGv\",\"type\":\"card\",\"data\":{\"card_name\":\"Custom Reports\",\"col\":4}}]",
  "creation": "2021-12-31 07:48:01.752714",
  "developer_mode_only": 0,
  "disable_user_customization": 0,
