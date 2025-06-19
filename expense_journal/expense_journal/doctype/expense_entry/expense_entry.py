@@ -68,10 +68,10 @@ def get_account_details(mode_of_payment,company,date):
             title=_("Missing Account"),
         )
 
-	account_balance = get_balance_on(account, date, ignore_account_permission=True)
+    account_balance = get_balance_on(account, date, ignore_account_permission=True)
 
-	expensesetting = frappe.get_doc('Accounts Settings')
-    
+    expensesetting = frappe.get_doc('Accounts Settings')
+        
     return {
         'show_balance': expensesetting.show_mode_of_payment_bal,
         'account': account,
