@@ -14,43 +14,43 @@ from erpnext.accounts.utils import (
 
 class ExpenseEntry(Document):
 	def validate(self):
-    	validate_cost_center_company(self)
-	    validate_account_companies(self)
+		validate_cost_center_company(self)
+		validate_account_companies(self)
 
 	def validate_cost_center_company(self):
-    	"""Validate that the selected Cost Center belongs to the document's company"""
-	    if self.default_cost_center:
-    	    cost_center_company = frappe.db.get_value("Cost Center", self.default_cost_center, "company")
-        
-        	if cost_center_company != self.company:
-            	frappe.throw(_("Cost Center {0} does not belong to company {1}. It belongs to {2}.").format(
-                	frappe.bold(self.default_cost_center),
-	                frappe.bold(self.company),
-    	            frappe.bold(cost_center_company)
-        	    ))
+		"""Validate that the selected Cost Center belongs to the document's company"""
+		if self.default_cost_center:
+			cost_center_company = frappe.db.get_value("Cost Center", self.default_cost_center, "company")
+
+			if cost_center_company != self.company:
+				frappe.throw(_("Cost Center {0} does not belong to company {1}. It belongs to {2}.").format(
+					frappe.bold(self.default_cost_center),
+					frappe.bold(self.company),
+					frappe.bold(cost_center_company)
+				))
 
 	def validate_account_companies(self):
-    	"""Validate that all accounts in items belong to the document's company"""
-	    for item in self.get("expenses", []):
-    	    if item.expense_account:
-        	    account_company = frappe.db.get_value("Account", item.expense_account, "company")
-        	    cost_center_company = frappe.db.get_value("Account", item.cost_center, "company")
-            
-	            if account_company != self.company:
-    	            frappe.throw(_("Row #{0}: Account {1} does not belong to company {2}. It belongs to {3}.").format(
-        	            item.idx,
-            	        frappe.bold(item.expense_account),
-                	    frappe.bold(self.company),
-                    	frappe.bold(account_company)
-	                ))
+		"""Validate that all accounts in items belong to the document's company"""
+		for item in self.get("expenses", []):
+			if item.expense_account:
+				account_company = frappe.db.get_value("Account", item.expense_account, "company")
+				cost_center_company = frappe.db.get_value("Account", item.cost_center, "company")
 
-	            if cost_center_company != self.company:
-    	            frappe.throw(_("Row #{0}: Cost Center {1} does not belong to company {2}. It belongs to {3}.").format(
-        	            item.idx,
-            	        frappe.bold(item.cost_center),
-                	    frappe.bold(self.company),
-                    	frappe.bold(cost_center_company)
-	                ))
+				if account_company != self.company:
+					frappe.throw(_("Row #{0}: Account {1} does not belong to company {2}. It belongs to {3}.").format(
+						item.idx,
+						frappe.bold(item.expense_account),
+						frappe.bold(self.company),
+						frappe.bold(account_company)
+					))
+
+				if cost_center_company != self.company:
+					frappe.throw(_("Row #{0}: Cost Center {1} does not belong to company {2}. It belongs to {3}.").format(
+						item.idx,
+						frappe.bold(item.cost_center),
+						frappe.bold(self.company),
+						frappe.bold(cost_center_company)
+					))
 
 
 @frappe.whitelist()
