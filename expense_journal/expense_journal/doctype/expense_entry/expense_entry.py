@@ -14,8 +14,8 @@ from erpnext.accounts.utils import (
 
 class ExpenseEntry(Document):
 	def validate(self):
-		validate_cost_center_company()
-		validate_account_companies()
+		self.validate_cost_center_company()
+		self.validate_account_companies()
 
 	def validate_cost_center_company(self):
 		"""Validate that the selected Cost Center belongs to the document's company"""
