@@ -35,7 +35,7 @@ class ExpenseEntry(Document):
 		for item in self.get("expenses", []):
 			if item.expense_account:
 				account_company = frappe.db.get_value("Account", item.expense_account, "company")
-				cost_center_company = frappe.db.get_value("Account", item.cost_center, "company")
+				cost_center_company = frappe.db.get_value("Cost Center", item.cost_center, "company")
 
 				if account_company != self.company:
 					frappe.throw(_("Row #{0}: Account {1} does not belong to company {2}. It belongs to {3}.").format(
