@@ -14,8 +14,8 @@ from erpnext.accounts.utils import (
 
 class ExpenseEntry(Document):
 	def validate(self):
-		validate_cost_center_company(self)
-		validate_account_companies(self)
+		validate_cost_center_company()
+		validate_account_companies()
 
 	def validate_cost_center_company(self):
 		"""Validate that the selected Cost Center belongs to the document's company"""
@@ -71,7 +71,7 @@ def get_account_details(mode_of_payment,company,date):
     account_balance = get_balance_on(account, date, ignore_account_permission=True)
 
     expensesetting = frappe.get_doc('Accounts Settings')
-        
+
     return {
         'show_balance': expensesetting.show_mode_of_payment_bal,
         'account': account,
