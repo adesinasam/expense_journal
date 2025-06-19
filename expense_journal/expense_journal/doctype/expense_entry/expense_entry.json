@@ -224,6 +224,8 @@
    "default": "0",
    "fieldname": "show_balance",
    "fieldtype": "Check",
+   "read_only": 1,
+   "hidden": 1,
    "label": "Show Balance"
   }
  ],

@@ -99,7 +99,7 @@ frappe.ui.form.on('Expense Entry', {
     mode_of_payment: function(frm) {
         if (frm.doc.mode_of_payment) {
             frappe.call({
-                method: 'expense_journal.expense_journal.doctype.expense_entry.get_account_details',
+                method: 'expense_journal.expense_journal.doctype.expense_entry.expense_entry.get_account_details',
                 args: {
                     'mode_of_payment': frm.doc.mode_of_payment,
                     'company': frm.doc.company,
