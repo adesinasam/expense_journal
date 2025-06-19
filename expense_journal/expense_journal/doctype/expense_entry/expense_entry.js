@@ -95,6 +95,24 @@ frappe.ui.form.on('Expense Entry', {
 			}
 		});
 		
-	}
-
+	},
+    mode_of_payment: function(frm) {
+        if (frm.doc.mode_of_payment) {
+            frappe.call({
+                method: 'expense_journal.expense_journal.doctype.expense_entry.get_account_details',
+                args: {
+                    'mode_of_payment': frm.doc.mode_of_payment,
+                    'company': frm.doc.company,
+                    'date': frm.doc.posting_date,
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        frm.set_value('show_balance', r.message.show_balance);
+                        frm.set_value('account', r.message.account);
+                        frm.set_value('account_balance', r.message.account_balance);
+                    }
+                }
+            });
+        }
+    }
 });

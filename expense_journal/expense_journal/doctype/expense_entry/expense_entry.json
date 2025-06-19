@@ -30,6 +30,9 @@
   "approved_by",
   "column_break_8",
   "mode_of_payment",
+  "show_balance",
+  "account",
+  "account_balance",
   "payment_reference",
   "clearance_date",
   "status",
@@ -201,6 +204,27 @@
    "fieldname": "set_posting_time",
    "fieldtype": "Check",
    "label": "Edit Posting Date"
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "label": "Account",
+   "hidden": 1,
+   "options": "Account"
+  },
+  {
+   "fieldname": "account_balance",
+   "fieldtype": "Currency",
+   "label": "Account Balance",
+   "depends_on": "show_balance",
+   "read_only": 1,
+   "options": "Account Balance"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_balance",
+   "fieldtype": "Check",
+   "label": "Show Balance"
   }
  ],
  "is_submittable": 1,
