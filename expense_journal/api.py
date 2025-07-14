@@ -194,6 +194,7 @@ def make_journal_entry(expense_entry):
 
         je.insert()
         je.submit()
+        expense_entry.db_set('journal_entry', je.name)
     
     elif expense_entry.status == "Cancelled":
 
@@ -201,3 +202,4 @@ def make_journal_entry(expense_entry):
         
         pr = frappe.get_doc("Journal Entry", pr_name)
         pr.cancel()
+        expense_entry.db_set('journal_entry', '')
