@@ -19,12 +19,12 @@ function update_totals(frm, cdt, cdn){
 }
 
 frappe.ui.form.on('Expense Entry Item', {
-	amount: function(frm, cdt, cdn) {
+    amount: function(frm, cdt, cdn) {
         update_totals(frm, cdt, cdn);
-	},
-	expenses_remove: function(frm, cdt, cdn){
+    },
+    expenses_remove: function(frm, cdt, cdn){
         update_totals(frm, cdt, cdn);
-	},
+    },
     expenses_add: function(frm, cdt, cdn){
         var d = locals[cdt][cdn];
         
@@ -36,8 +36,16 @@ frappe.ui.form.on('Expense Entry Item', {
                 cur_frm.refresh_field("expenses");
             }
         }
-	}
-	
+        if((d.project === "" || typeof d.project == 'undefined')) { 
+
+            if (cur_frm.doc.default_project != "" || typeof cur_frm.doc.default_project != 'undefined') {
+                
+                d.project = cur_frm.doc.default_project; 
+                cur_frm.refresh_field("expenses");
+            }
+        }
+    }
+    
 });
 
 
@@ -59,43 +67,77 @@ frappe.ui.form.on('Expense Entry', {
                     d.cost_center = cur_frm.doc.default_cost_center; 
                 }
             }
+            if(cur_frm.doc.default_project != "" || typeof cur_frm.doc.default_project != 'undefined') {                 
+                d.project = cur_frm.doc.default_project; 
+            }
         }); 
         
     },
     refresh(frm) {
         //update total and qty when an item is added
-	},
-	onload(frm) {
-	    //console.log("hello");
+        if (frm.is_new()) return;
 
-		frm.set_query("expense_account", 'expenses', () => {
-			return {
-				filters: [
-					["Account", "company", "=", frm.doc.company],
-					["Account", "root_type", "=", "Expense"],
-					["Account", "parent_account", "Not Like", "%Stock Expenses%"],
-                    ["Account", "is_group", "=", "0"]
-				]
-			}
-		});
-		frm.set_query("cost_center", 'expenses', () => {
-			return {	
-				filters: [
-					["Cost Center", "company", "=", frm.doc.company],
-					["Cost Center", "is_group", "=", "0"]
-				]
-			}
-		});
-		frm.set_query("default_cost_center", () => {
-			return {
-				filters: [
-					["Cost Center", "company", "=", frm.doc.company],
-					["Cost Center", "is_group", "=", "0"]
-				]
-			}
-		});
-		
-	},
+        if (frm.doc.docstatus === 0) {
+            frm.add_custom_button(__('Ledger Preview'), () => {
+                show_ledger_preview(frm);
+            }, __('Preview'));
+        }
+
+        if (frm.doc.docstatus === 1) {
+            frm.add_custom_button(__('General Ledger'), () => {
+                frappe.set_route('query-report', 'General Ledger', {
+                    voucher_type: frm.doc.doctype,
+                    voucher_no: frm.doc.name
+                });
+            }, __('View'));
+        }
+
+    },
+    onload(frm) {
+        //console.log("hello");
+
+        frm.set_query("expense_account", 'expenses', () => {
+            return {
+                filters: [
+                    ["Account", "company", "=", frm.doc.company],
+                    ["Account", "root_type", "=", "Expense"],
+                    ["Account", "parent_account", "Like", "%Indirect Expenses%"],
+                                ["Account", "is_group", "=", "0"]                   
+                ]
+            }
+        });
+        frm.set_query("cost_center", 'expenses', () => {
+            return {
+                filters: [
+                    ["Cost Center", "company", "=", frm.doc.company],
+                    ["Cost Center", "is_group", "=", "0"]
+                ]
+            }
+        });
+        frm.set_query("default_cost_center", () => {
+            return {
+                filters: [
+                    ["Cost Center", "company", "=", frm.doc.company],
+                    ["Cost Center", "is_group", "=", "0"]
+                ]
+            }
+        });
+        frm.set_query("project", 'expenses', () => {
+            return {
+                filters: [
+                    ["Project", "company", "=", frm.doc.company]
+                ]
+            }
+        });
+        frm.set_query("default_project", () => {
+            return {
+                filters: [
+                    ["Project", "company", "=", frm.doc.company]
+                ]
+            }
+        });
+        
+    },
     mode_of_payment: function(frm) {
         if (frm.doc.mode_of_payment) {
             frappe.call({
@@ -116,3 +158,48 @@ frappe.ui.form.on('Expense Entry', {
         }
     }
 });
+
+
+function show_ledger_preview(frm) {
+    frappe.call({
+        method: 'get_gl_preview',
+        doc: frm.doc,
+        callback(r) {
+            if (r.message) {
+                const d = new frappe.ui.Dialog({
+                    title: __('Accounting Ledger Preview'),
+                    size: 'large',
+                    fields: [{ fieldtype: 'HTML', fieldname: 'html' }]
+                });
+
+                d.fields_dict.html.$wrapper.html(render_gl_table(r.message));
+                d.show();
+            }
+        }
+    });
+}
+
+function render_gl_table(entries) {
+    let rows = entries.map(e => `
+        <tr>
+            <td>${e.account}</td>
+            <td class="text-right">${format_currency(e.debit)}</td>
+            <td class="text-right">${format_currency(e.credit)}</td>
+            <td>${e.remarks || ''}</td>
+        </tr>
+    `).join('');
+
+    return `
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    `;
+}

@@ -4,11 +4,11 @@ from . import __version__ as app_version
 
 app_name = "expense_journal"
 app_title = "Expense Journal"
-app_publisher = "Glistercp"
-app_description = "ERPNext Expense Journal"
+app_publisher = "Wafgene Solutions"
+app_description = "ERPNext Expense Request Extension"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
-app_email = "support@glistercp.com.ng"
+app_email = "sinaakinyemi@gmail.com"
 app_license = "MIT"
 
 # Includes in <head>
@@ -56,6 +56,8 @@ app_license = "MIT"
 
 # before_install = "expenses.install.before_install"
 # after_install = "expenses.install.after_install"
+after_install = "expense_journal.dimension.create_dimension_fields"
+after_migrate = "expense_journal.dimension.create_dimension_fields"
 
 # Desk Notifications
 # ------------------
@@ -81,8 +83,12 @@ app_license = "MIT"
 
 doc_events = {
 	"Expense Entry": {
-		"on_submit": "expense_journal.api.setup",
+		# "on_submit": "expense_journal.api.setup",
 		"on_cancel": "expense_journal.apy.setup"
+	},
+	"Accounting Dimension": {
+		"after_insert": "expense_journal.dimension.create_dimension_fields",
+		"on_update": "expense_journal.dimension.create_dimension_fields"
 	}
 }
 
