@@ -17,10 +17,9 @@ import erpnext
 from erpnext.accounts.utils import get_balance_on
 
 class ExpenseEntry(Document):
-	def validate(self):
-		self.validate_cost_center_company()
-		self.validate_account_companies()
-
+    def validate(self):
+        self.validate_cost_center_company()
+        self.validate_account_companies()
 
     def on_submit(self):
         self.make_gl_entries()
