@@ -21,6 +21,7 @@ class ExpenseEntry(Document):
 		self.validate_cost_center_company()
 		self.validate_account_companies()
 
+
     def on_submit(self):
         self.make_gl_entries()
 
