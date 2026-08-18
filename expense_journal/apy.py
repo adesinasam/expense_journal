@@ -34,6 +34,9 @@ def make_journal_entry(expense_entry):
         "name"
     )
 
+    if not pr_name:
+        return
+
     if pr_name:
         pr = frappe.get_doc("Journal Entry", pr_name)
         pr.cancel()
