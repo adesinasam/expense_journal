@@ -25,6 +25,13 @@ class ExpenseEntry(Document):
         self.make_gl_entries()
 
     def on_cancel(self):
+        # Un-match this entry from any Mint / Bank Transaction it was reconciled with
+        from erpnext.accounts.doctype.bank_transaction.bank_transaction import (
+            remove_from_bank_transaction,
+        )
+        remove_from_bank_transaction(self.doctype, self.name)
+        self.db_set("clearance_date", None)
+
         frappe.db.sql(
             """
             DELETE FROM `tabGL Entry`
@@ -100,7 +107,7 @@ class ExpenseEntry(Document):
 
         if (
             self.mode_of_payment != "Cash"
-            and (not self.payment_reference or not self.clearance_date)
+            and (not self.payment_reference or not self.reference_date)
         ):
             frappe.throw(
                 title="Enter Payment Reference",
