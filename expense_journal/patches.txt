@@ -1,0 +1,4 @@
+[pre_model_sync]
+
+[post_model_sync]
+expense_journal.patches.move_reference_date_off_clearance_date

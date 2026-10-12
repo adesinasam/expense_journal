@@ -36,6 +36,7 @@
   "account",
   "account_balance",
   "payment_reference",
+  "reference_date",
   "clearance_date",
   "amended_from"
  ],
@@ -138,9 +139,18 @@
   },
   {
    "depends_on": "eval:doc.mode_of_payment != \"Cash\"",
+   "fieldname": "reference_date",
+   "fieldtype": "Date",
+   "label": "Reference Date"
+  },
+  {
    "fieldname": "clearance_date",
    "fieldtype": "Date",
-   "label": "Reference / Clearance Date"
+   "label": "Clearance Date",
+   "read_only": 1,
+   "no_copy": 1,
+   "allow_on_submit": 1,
+   "description": "Set automatically when this entry is matched to a bank transaction in Mint."
   },
   {
    "fieldname": "status",

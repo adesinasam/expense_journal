@@ -81,6 +81,23 @@ after_migrate = "expense_journal.dimension.create_dimension_fields"
 # ---------------
 # Hook on document methods and events
 
+# ---------------------------------------------------------------------------
+# Bank reconciliation (ERPNext Bank Reconciliation Tool and the Mint app)
+# ---------------------------------------------------------------------------
+bank_reconciliation_doctypes = ["Expense Entry"]
+
+get_matching_queries = "expense_journal.bank_reconciliation.get_matching_queries"
+
+get_entries_for_bank_clearance_summary = (
+	"expense_journal.bank_reconciliation.get_entries_for_bank_clearance_summary"
+)
+
+get_entries_for_bank_reconciliation_statement = (
+	"expense_journal.bank_reconciliation.get_entries_for_bank_reconciliation_statement"
+)
+
+get_amounts_not_reflected_in_system_for_bank_reconciliation_statement = "expense_journal.bank_reconciliation.get_amounts_not_reflected_in_system_for_bank_reconciliation_statement"
+
 doc_events = {
 	"Expense Entry": {
 		# "on_submit": "expense_journal.api.setup",
